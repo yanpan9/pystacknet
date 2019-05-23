@@ -282,7 +282,7 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
              indices=KFold( n_splits=self.folds,shuffle=True, random_state=self.random_state).split(y)
 
         else :
-            indices=self.folds
+            indices=list(self.folds)
 
         self._level_dims =[]
 
@@ -290,7 +290,7 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
         current_input=X
 
         self.estimators_=[]
-        result = np.zeros((len(self.models[0])+1, len(list(indices))))
+        result = np.zeros((len(self.models[0])+1, len(indices)))
         ##start the level training
         for level in range (len(self.models)):
             start_level_time = time.time()
