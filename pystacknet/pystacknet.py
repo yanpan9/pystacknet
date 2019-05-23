@@ -290,6 +290,7 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
         current_input=X
 
         self.estimators_=[]
+        result = np.zeros((len(self.models[0])+1, len(list(indices))))
         ##start the level training
         for level in range (len(self.models)):
             start_level_time = time.time()
@@ -321,7 +322,7 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
             indices=[t for t in indices]
 
             iter_count=len(indices)
-            result = np.zeros((len(self.models[0])+1, iter_count))
+            
             #print ("iter_count",iter_count)
 
             i=0
@@ -421,7 +422,6 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
 
             metrics=np.array(metrics)
             metrics/=float(iter_count)
-            np.savetxt("../Stacking_%s.txt"%self.cv_title, result)
 
             if self.verbose>0:
                 for d in range(len(this_level_models)):
@@ -465,6 +465,7 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
                 print (" level %d lasted %f seconds " % (level,end_of_level_time-start_level_time ))
 
         end_of_fit_time=time.time()
+        np.savetxt("../result/Stacking_%s.txt"%self.cv_title, result, fmt="%.4f")
         if self.verbose>0:
 
             print ("====================== End of fit ======================")
