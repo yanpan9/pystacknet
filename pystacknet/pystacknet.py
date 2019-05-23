@@ -321,7 +321,7 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
             indices=[t for t in indices]
 
             iter_count=len(indices)
-            result = np.zeros((len(self.models)+1, iter_count))
+            result = np.zeros((len(self.models[0])+1, iter_count))
             #print ("iter_count",iter_count)
 
             i=0
