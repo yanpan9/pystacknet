@@ -180,6 +180,7 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
              raise Exception( 'folds must be 2 or more')
 
     self.folds=folds
+    self.cv_title = cv_title
     #check use_proba
     if use_proba not in [True, False]:
          raise Exception("use_proba has to be True or False")
@@ -420,7 +421,7 @@ class StackNetClassifier(BaseEstimator, ClassifierMixin):
 
             metrics=np.array(metrics)
             metrics/=float(iter_count)
-            np.savetxt("../Stacking_%s.txt"%cv_title, result)
+            np.savetxt("../Stacking_%s.txt"%self.cv_title, result)
 
             if self.verbose>0:
                 for d in range(len(this_level_models)):
